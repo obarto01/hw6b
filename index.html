@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Amicable Numbers</title>
+<style type="text/css">
+  @media only screen and (max-width: 1080px)
+  {
+    html,body {font-size: 125%; margin: 0;}
+  }
+  @media only screen and (min-width: 1081px)
+  {
+    html,body {font-size: 112%; margin: 0;}
+  }
+
+  header
+  {
+    width: 100%;
+    height: 15%;
+    top: 0;
+    background-color: lightblue;
+    color: white;
+    font-size: 300%;
+    text-align: center;
+    position: fixed;
+    padding-top: 2%;
+  }
+</style>
+</head>
+
+<body>
+<div style="width: 100%; height: 100%; position: fixed; top: 20%; overflow: scroll;">
+  	<header>
+      	Amicable Numbers
+  	</header>
+	<script language="javascript">
+		function reveal()
+		{	
+			num_one = document.getElementById("num_one").value;
+			num_two = document.getElementById("num_two").value;
+			var nums = num_one + " and " + num_two;
+			document.getElementById("nums").value = nums;	
+		}
+
+		function checkAmicability()
+		{
+			num_one = document.getElementById("num_one").value;
+			num_two = document.getElementById("num_two").value;		
+			var factors_one = new Array();
+			factors_one = getFactors(num_one);	
+			var factors_two = new Array();
+			factors_two = getFactors(num_two);	
+			//showFactors(factors_one);
+			//showFactors(factors_two);
+			var sum_one = 0;
+			var sum_two = 0;
+			sum_one = addFactors(factors_one);
+			sum_two = addFactors(factors_two);
+			//document.write(sum_one + " " + sum_two);
+			var amicable = false;
+			if (sum_one == num_two && sum_two == num_one)
+			{
+				amicable = true;
+			}
+			if (amicable)
+			{
+				document.getElementById("result").value = "Amicable!";	
+			}
+			else
+			{
+				document.getElementById("result").value = "Numbers are not amicable";	
+			}
+		}
+
+		function isFactor(num, test)
+		{
+			var is_factor = false;
+			num = parseInt(num);
+			test = parseInt(test);
+			if ((num%test) == 0)
+			{
+				is_factor = true;
+			}
+			return is_factor;
+			//document.getElementById("is_factor").value = is_factor;	
+		}
+		/*
+		function test_arr()
+		{
+			num_one = document.getElementById("num_one").value;
+			num_two = document.getElementById("num_two").value;
+			var sample_arr = new Array(2);
+			sample_arr[0] = num_one;
+			sample_arr[1] = num_two;
+			showFactors(sample_arr);
+			addFactors(sample_arr);
+		}
+		function showFactors(arr)
+		{
+			for (var i=0; i<arr.length; i++)
+			{
+				document.write(arr[i] + " ");
+			}
+			document.write("<br />");
+		}
+		*/
+
+
+		function addFactors(arr)
+		{
+			var sum = 0;
+			for (var i=0; i<arr.length; i++)
+			{
+				sum += arr[i];
+			}
+			return sum;		
+		}
+
+		function getFactors(num)
+		{
+			num = parseInt(num);
+			var count = 0;
+			var factors = new Array();
+			for (var i=1; i<=(num/2); i++)
+			{
+				if (isFactor(num, i))
+				{
+					factors[count] = i;
+					count++;
+				}
+			}
+			//showFactors(factors);
+			return factors;
+		}
+	</script>
+	<form name="form1">
+		Enter a Number: <input type="text" name="num_one" id="num_one">
+		<br />
+		Enter Another Number: <input type="text" name="num_two" id="num_two">
+		<br />
+		<input type="button" value="Calculate" onclick="reveal(); checkAmicability()/*;isFactor(num_one.value, num_two.value)*//*;test_arr()*//*;getFactors(17)*/">
+		<br />
+		Your Input: <input type="text" name="nums" id="nums">
+		<br />
+		<!--Factor: <input type="text" name="is_factor" id="is_factor">-->
+		Result: <input size = 30% type="text" name="result" id="result">
+	</form>
+</div>
+</body>
+</html>
